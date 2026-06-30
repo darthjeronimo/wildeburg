@@ -1,1 +1,298 @@
 
+<!DOCTYPE html><html lang="nl"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KRANTJE van Wildeburg · Blokkenschema 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f2e8d2; --paper2:#ece0c4; --ink:#28241c; --muted:#8a7d61;
+  --line:#d9c8a0; --bamboo:#7d8c4a; --bus:#c2502f;
+  --lw:122px; --hw:70px; --rh:60px;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--paper);color:var(--ink);
+  font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background-image:radial-gradient(rgba(125,140,74,.05) 1px,transparent 1px);background-size:22px 22px;}
+.wrap{max-width:1240px;margin:0 auto;padding:0 14px 60px}
+
+/* masthead — krantje */
+header{border-bottom:3px double var(--ink);padding:16px 4px 10px;margin-bottom:6px;position:relative;overflow:hidden}
+.kicker{display:flex;justify-content:space-between;align-items:center;font-size:.72rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:600}
+.kicker b{color:var(--bamboo)}
+h1{font-family:"Fraunces",serif;font-weight:900;font-size:clamp(2rem,7vw,3.6rem);line-height:.95;margin:6px 0 2px;letter-spacing:-.5px}
+.dateline{font-family:"Fraunces",serif;font-style:italic;font-size:1.05rem;color:#4a4536}
+.lead{font-size:.82rem;color:var(--muted);max-width:640px;margin-top:6px;line-height:1.4}
+.busline{position:absolute;right:10px;bottom:8px;width:160px;opacity:.92;pointer-events:none}
+@media(max-width:620px){.busline{display:none}}
+
+/* day tabs */
+.days{display:flex;gap:8px;flex-wrap:wrap;padding:14px 2px 6px;position:sticky;top:0;z-index:40;background:linear-gradient(var(--paper) 75%,rgba(242,232,210,0));}
+.day-btn{font-family:"Fraunces",serif;background:var(--paper2);border:2px solid var(--ink);color:var(--ink);
+  padding:7px 16px 6px;border-radius:3px;cursor:pointer;font-weight:700;font-size:1rem;line-height:1}
+.day-btn small{display:block;font-family:"Inter";font-weight:500;color:var(--muted);font-size:.66rem;margin-top:2px}
+.day-btn.active{background:var(--ink);color:var(--paper)}
+.day-btn.active small{color:#d8caa0}
+.hint{color:var(--muted);font-size:.72rem;padding:2px 2px 8px;display:flex;align-items:center;gap:6px}
+
+.sesslabel{font-family:"Fraunces",serif;font-style:italic;font-size:.95rem;color:var(--bus);margin:16px 2px 4px;font-weight:700}
+
+/* grid */
+.scroller{overflow-x:auto;border:1.5px solid var(--ink);border-radius:6px;background:var(--paper2);-webkit-overflow-scrolling:touch;box-shadow:3px 4px 0 rgba(40,36,28,.12)}
+.grid{position:relative}
+.timehead{display:flex;height:26px;position:sticky;top:0;z-index:20;background:var(--ink);color:var(--paper)}
+.th-corner{flex:0 0 var(--lw);position:sticky;left:0;z-index:22;background:var(--ink);display:flex;align-items:center;padding-left:10px;
+  font-family:"Fraunces",serif;font-style:italic;font-size:.72rem;color:#d8caa0}
+.th-corner.right{position:sticky;right:0;left:auto;flex:0 0 var(--lw)}
+.hours{display:flex}
+.hour{flex:0 0 var(--hw);font-size:.64rem;border-left:1px solid rgba(217,200,160,.25);padding:5px 0 0 4px;font-weight:500}
+.dayband{display:flex;height:24px}
+.db-corner{flex:0 0 var(--lw);position:sticky;left:0;z-index:23;background:var(--ink)}
+.db-seg{flex:0 0 auto;display:flex;align-items:center;justify-content:center;gap:6px;background:var(--ink);color:var(--paper);
+  font-family:"Fraunces",serif;font-style:italic;font-weight:700;font-size:.84rem;border-left:2px solid var(--paper)}
+.db-seg span{font-style:normal;font-family:"Inter";font-weight:500;font-size:.6rem;opacity:.78}
+.daybg{position:absolute;top:50px;bottom:0;pointer-events:none}
+.dayline{position:absolute;top:50px;bottom:0;width:2px;background:var(--ink);z-index:14;pointer-events:none}
+.nowind{position:absolute;top:2px;bottom:0;width:2px;background:var(--bus);z-index:25;pointer-events:none}
+.nowind::before{content:"";position:absolute;top:-1px;left:-6px;width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-top:11px solid var(--bus)}
+.nowlbl{position:absolute;top:13px;left:6px;background:var(--bus);color:#fff;font-size:.56rem;font-weight:700;padding:1px 5px;border-radius:3px;white-space:nowrap;letter-spacing:.5px}
+.contday{margin:5px 0}
+.contday b{font-family:"Fraunces",serif;font-style:italic;color:var(--bus);margin-right:6px}
+
+.rrow{position:relative;height:var(--rh);display:flex;align-items:stretch;border-top:1px solid var(--line)}
+.rrow.alt{background:rgba(255,255,255,.16)}
+.rlabel{flex:0 0 var(--lw);position:sticky;left:0;z-index:15;display:flex;flex-direction:column;justify-content:center;
+  padding:0 8px;color:#fff;font-weight:700;font-size:.74rem;line-height:1.05;border-right:2px solid var(--ink)}
+.rlabel small{font-weight:500;font-size:.56rem;opacity:.9;margin-top:1px}
+.rlabel.right{position:sticky;right:0;left:auto;border-right:none;border-left:2px solid var(--ink);text-align:right;align-items:flex-end}
+.track{position:relative;flex:1 1 auto;min-width:0}
+.vline{position:absolute;top:0;bottom:0;width:0;border-left:1px solid rgba(125,140,74,.16)}
+.vline.bamboo{border-left:2px solid rgba(125,140,74,.30)}
+.blk{position:absolute;top:5px;height:calc(var(--rh) - 10px);border-radius:4px;padding:3px 5px;overflow:hidden;color:#fff;display:flex;flex-direction:column;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.22),1px 1px 0 rgba(40,36,28,.18);cursor:pointer;transition:transform .1s ease,box-shadow .12s ease,filter .12s ease}
+.blk b{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;font-size:.68rem;font-weight:700;line-height:1.05;overflow:hidden;word-break:break-word;hyphens:auto}
+.blk span{font-size:.57rem;opacity:.92;font-weight:500;margin-top:auto;white-space:nowrap}
+.blk .lv{font-size:.5rem;background:rgba(255,255,255,.28);border-radius:3px;padding:0 3px;margin-left:3px;vertical-align:middle;letter-spacing:.5px}
+.blk .star{font-style:normal;color:#ffd54a;text-shadow:0 0 1px rgba(0,0,0,.55);margin-right:2px}
+.blk.open{height:auto;min-height:calc(var(--rh) - 10px);z-index:30;overflow:visible;box-shadow:0 5px 16px rgba(40,36,28,.4)}
+.blk.open b{display:block;-webkit-line-clamp:unset;white-space:normal;overflow:visible;font-size:.72rem}
+.blk.open span{white-space:normal}
+.pastveil{position:absolute;top:50px;bottom:0;left:0;z-index:13;pointer-events:none;background:rgba(236,224,196,.5);
+  -webkit-backdrop-filter:grayscale(.65);backdrop-filter:grayscale(.65);border-right:0}
+@media(hover:hover){.blk:hover{filter:brightness(1.12);transform:translateY(-1px);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.75),0 3px 10px rgba(40,36,28,.38);z-index:12}}
+.blk:active{transform:translateY(0) scale(.98)}
+.blk.open{box-shadow:0 7px 20px rgba(40,36,28,.5),inset 0 0 0 2px rgba(255,255,255,.92);filter:none}
+.lg-tip{color:var(--muted);font-style:italic}
+.legend{display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-size:.76rem;color:#4a4536;padding:0 2px 10px}
+.legend .lg-star{color:#e0a92a;font-size:1rem;margin-right:3px}
+.demo-btn{font-family:"Inter";font-size:.72rem;font-weight:600;background:var(--paper2);border:1.5px solid var(--ink);color:var(--ink);padding:5px 12px;border-radius:999px;cursor:pointer}
+.demo-btn.on{background:var(--bus);color:#fff;border-color:var(--bus)}
+
+.cont{margin:8px 2px 0;font-size:.74rem;color:#4a4536;line-height:1.6}
+.cont .ct{font-family:"Fraunces",serif;font-style:italic;color:var(--muted);margin-right:4px}
+.chip{display:inline-block;background:var(--paper2);border:1px solid var(--line);border-radius:999px;padding:2px 9px;margin:2px 3px 2px 0;font-size:.7rem;font-weight:500}
+.chip i{font-style:normal;font-weight:700;color:#fff;border-radius:50%;padding:0 5px;margin-right:5px;font-size:.62rem}
+
+footer{margin-top:26px;border-top:3px double var(--ink);padding-top:12px;color:var(--muted);font-size:.74rem;line-height:1.5}
+footer b{color:var(--ink)}
+.watermark{font-family:"Fraunces",serif;font-style:italic;color:var(--bamboo);font-weight:700}
+</style></head><body>
+<div class="wrap">
+<header>
+  <div class="kicker"><span><b>KRANTJE</b> van Wildeburg</span><span>Editie 2026 · Gratis</span></div>
+  <h1>Het Blokkenschema</h1>
+  <div class="dateline">Wildeburg 2026 · vrijdag 10 t/m zondag 12 juli</div>
+  <svg class="busline" viewBox="0 0 200 70" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <!-- little bus -->
+    <g>
+      <rect x="40" y="22" width="120" height="34" rx="7" fill="#c2502f"/>
+      <rect x="46" y="27" width="22" height="15" rx="2" fill="#f2e8d2"/>
+      <rect x="72" y="27" width="22" height="15" rx="2" fill="#f2e8d2"/>
+      <rect x="98" y="27" width="22" height="15" rx="2" fill="#f2e8d2"/>
+      <rect x="126" y="27" width="28" height="15" rx="2" fill="#f2e8d2"/>
+      <rect x="40" y="46" width="120" height="6" fill="#28241c" opacity=".25"/>
+      <circle cx="64" cy="58" r="8" fill="#28241c"/><circle cx="64" cy="58" r="3" fill="#f2e8d2"/>
+      <circle cx="138" cy="58" r="8" fill="#28241c"/><circle cx="138" cy="58" r="3" fill="#f2e8d2"/>
+      <rect x="156" y="30" width="6" height="8" rx="2" fill="#f0c419"/>
+    </g>
+  </svg>
+</header>
+
+<div class="days" id="days"></div>
+<div class="hint">Deze hand crafted, curated en designed blokkenschema word je aangeboden door Jeroen. Sleeeeee!</div>
+<div class="legend"><span><span class="lg-star">★</span>Roger-Roger Select</span><span class="lg-tip">Tik een blok aan voor de volledige naam</span><button id="demoBtn" class="demo-btn">Toon "nu"-wijzer (demo)</button></div>
+<div id="content"></div>
+
+<footer>
+  <span class="watermark">KRANTJE van Wildeburg</span> · gereconstrueerd uit het officiële PDF-blokkenschema (WB26). Alle namen, tijden en podia zijn opnieuw uit de bron afgeleid en gecontroleerd. <b>LIVE</b> = liveoptreden. <b style="color:#e0a92a">★</b> = Roger-Roger Select. "Doorlopend" = doorlopende acts, workshops en spelletjes zonder vast blok.
+</footer>
+</div>
+
+<script>
+const STAGES=["Wildlive","Strand","Helling","BUD X Lodge","Bamboebos","Duinpan","Studio / De Baan","Achtertuin","Kas"];
+const DESC={"Wildlive":"live podium","Strand":"","Helling":"","BUD X Lodge":"","Bamboebos":"","Duinpan":"","Studio / De Baan":"club · live · spel","Achtertuin":"","Kas":"all-night · DE SPOT"};
+const COL={"Wildlive":"#b5562f","Strand":"#b8923f","Helling":"#6f7d3e","BUD X Lodge":"#bd7a2f","Bamboebos":"#4f7a41","Duinpan":"#557d73","Studio / De Baan":"#8a6a4a","Achtertuin":"#436b3f","Kas":"#36514a"};
+
+// each day: {end:hoursFromNoon, timed:{stage:[["start–end","name","tag?"]]}, cont:{stage:["text"]}}
+const DATA={
+ fri:{label:"Vrijdag",date:"10 juli",end:24,
+  timed:{
+   "Wildlive":[["15:00–16:00","Coloray","LIVE"],["17:00–18:00","De Nachtwacht"],["19:00–20:00","Ploegendienst"],["21:00–22:00","S10"],["23:00–00:00","Raffie De Driver XXL"]],
+   "Strand":[["12:00–15:00","Nellzz"],["15:00–17:00","Yusu Selectors"],["17:00–19:00","Yucky"],["19:00–21:00","Bokoesam & DJ Steesko (dancehall)"],["21:00–23:00","DJ POLO"],["23:00–01:00","Lamsi"],["01:00–03:00","riria"],["03:00–05:00","EYCEE & Passion DEEZ"]],
+   "Helling":[["15:00–18:00","Di After"],["18:00–20:30","DAWS"],["20:30–21:30","Byron Yeates","LIVE"],["21:30–00:30","ATRIP & LAMMER"],["00:30–02:30","VTSS"],["02:30–05:00","THELMA"],["05:00–08:00","Newtone"]],
+   "BUD X Lodge":[["12:00–15:00","Nerds With Acid"],["15:00–16:00","Gioray","LIVE"],["16:00–18:00","jannah"],["18:00–19:00","Alberta Balsam","LIVE"],["19:00–21:30","LazerGazer"],["21:30–00:00","Jasmín"],["00:00–02:00","gyrofield"],["02:00–04:00","Sully"],["04:00–06:00","Dirtydms"]],
+   "Bamboebos":[["14:00–17:00","ESTRELLA"],["17:00–19:30","Malin Genie"],["19:30–22:00","Ogazón"],["22:00–00:30","Katia Curie"],["00:30–03:00","dj sweet6teen"],["03:00–06:00","Priori"]],
+   "Duinpan":[["13:00–16:00","bebe bad"],["16:00–18:30","re:ni"],["18:30–20:30","RONI"],["20:30–22:30","TWIENA"],["22:30–01:30","Ogazón & Rene Wise"]],
+   "Studio / De Baan":[["16:00–17:00","Lézard"],["18:00–18:30","Zeldzame"],["19:30–20:15","IDA"],["20:45–21:15","Rijck"],["22:00–23:00","TUKAN"],["23:00–03:00","Hutjemutje: DJ Olivier e.a."],["06:00–12:00","Ochtendgloren: Optimo (Espacio)"]],
+   "Achtertuin":[["14:00–17:00","Yuval Avital"],["17:00–20:00","Kirollus"],["20:00–22:00","Ajuma"],["22:00–00:00","Bradley Zero"],["00:00–02:30","Danilo Plessow"],["02:30–05:00","Vasco"]],
+   "Kas":[["00:00–05:00","Âme"]]
+  },
+  cont:{
+   "Wildlive":["Host: Liza van den Brink (doorlopend)"],
+   "Studio / De Baan":["NK Inkomen","Hutjedutje: De Bingo","Hutjegrutje: Perspectief","Hutjeklutje: Op Elkaar"],
+   "Kas":["DE SPOT (overdag)"]
+  }},
+ za:{label:"Zaterdag",date:"11 juli",end:24,
+  timed:{
+   "Wildlive":[["13:00–13:45","stay away from dante!"],["15:00–16:00","De Baron"],["17:00–18:00","Nana Benz Du Togo"],["19:00–20:00","Yung Felix presents…"],["21:00–22:00","Hang Youth"],["23:00–00:00","Jersey"]],
+   "Strand":[["12:00–15:00","Ism Schism Soundsism"],["15:00–19:00","Mr Scruff & MC Kwasi"],["19:00–21:00","Tash LC"],["21:00–23:00","State OFFF"],["23:00–01:00","Jyoty"],["01:00–02:30","Champion"],["02:30–05:00","Sam Girling"]],
+   "Helling":[["15:00–19:00","Job Jobse"],["19:00–21:30","Moxes & PHIA"],["21:30–00:00","Avalon Emerson"],["00:00–02:30","Milion"],["02:30–05:00","X CLUB."],["05:00–08:00","SWIM"]],
+   "BUD X Lodge":[["12:00–16:00","Etape"],["16:00–17:00","Mammo","LIVE"],["17:00–20:00","Hervé & XIAOLIN"],["20:00–22:30","nthng"],["22:30–00:30","Torus"],["00:30–02:00","Hysteria DJ's"],["02:00–03:30","Promo"],["03:30–06:00","HyperLili"]],
+   "Bamboebos":[["14:00–17:00","Idilay"],["17:00–19:30","Mountain People"],["19:30–22:00","PLO Man"],["22:00–01:00","Raresh"],["01:00–03:30","tINI"],["03:30–06:00","Samuel Deep"]],
+   "Duinpan":[["13:00–16:00","Alec Dienaar"],["16:00–18:30","DJ Fuckoff"],["18:30–20:30","MCR-T"],["20:30–23:00","u.r.trax"],["23:00–01:00","Delano Legito"],["01:00–03:30","RØDHÅD"],["03:30–06:00","Nadia Struiwigh"]],
+   "Studio / De Baan":[["14:00–14:45","De Gestampte Meisjes"],["16:00–17:00","La Banda Fantastica"],["18:00–18:45","Nnelg"],["20:00–20:45","Alice Olsthoorn"],["22:30–23:15","Kaat van Stralen"],["23:15–03:00","Hutjemutje: Gustaf 3000, TAJ en HELLE"],["06:00–12:00","Ochtendgloren: Benny Rodrigues"]],
+   "Achtertuin":[["14:00–17:00","Lysah"],["17:00–19:30","Doppelgang"],["19:30–22:00","DJ Subaru"],["22:00–00:30","Sound Metaphors DJs"],["00:30–03:00","Erol Alkan"],["03:00–05:00","I-F"]],
+   "Kas":[["00:00–05:00","Acid Pauli"]]
+  },
+  cont:{
+   "Wildlive":["Host: Mylan (doorlopend)"],
+   "Studio / De Baan":["MOK The One Man Band","Wine Ya Waist Workshop","Kurashi","Milan Mes"],
+   "Kas":["DE SPOT (overdag)"]
+  }},
+ zo:{label:"Zondag",date:"12 juli",end:11,
+  timed:{
+   "Wildlive":[["13:00–14:00","David August","AMBIENT"],["15:00–16:00","QUIQUE"],["17:00–17:45","Kevin"],["19:00–20:00","K.O.G."],["21:00–22:00","Gallowstreet"]],
+   "Strand":[["12:00–15:00","Ketama Man"],["15:00–18:00","Iration Steppas"],["18:00–21:00","DJ Spit & Miley Serious"],["21:00–23:00","Hamdi"]],
+   "Helling":[["14:00–16:00","KINETIKS"],["16:00–18:00","Coffintexts"],["18:00–20:00","Helena Lauwaert"],["20:00–23:00","Surprise birthday party!"]],
+   "BUD X Lodge":[["12:00–15:00","Shana"],["15:00–17:00","Milio"],["17:00–21:00","360 Soundsystem (Bäumel & Dos Santos)"],["21:00–23:00","David August"]],
+   "Bamboebos":[["13:00–17:00","Dana Kuehr"],["17:00–20:00","Dyed Soundorom"],["20:00–23:00","Love On The Rocks: PARAMIDA, Simone de Kunovich & Pancratio"]],
+   "Duinpan":[["13:00–17:30","Altinbas"],["17:30–20:00","Binh"],["20:00–23:00","Kittin & Steffi"]],
+   "Studio / De Baan":[["14:00–14:45","Hokjesdenker"],["16:00–16:45","Igor"],["18:00–19:00","KAGAMI"],["20:00–20:45","jet van der steen"],["20:45–22:00","HUTJE"],["22:00–23:00","MUTJE"]],
+   "Achtertuin":[["14:00–17:00","Margaux"],["17:00–19:00","Juliana X"],["19:00–21:00","O'Flynn"],["21:00–23:00","Tonno Disko"]],
+   "Kas":[]
+  },
+  cont:{
+   "Wildlive":["Host: DJ Truus & Tune (doorlopend)"],
+   "Studio / De Baan":["Naaicursus: Leren Pijpen","Hutjeprutje: De Veiling","Hutjemutje: Idols"],
+   "Kas":["DE SPOT (overdag)"]
+  }}
+};
+
+const HW=70, NOON=720, LW=122;
+const STARS=new Set(["Ochtendgloren: Benny Rodrigues","Love On The Rocks: PARAMIDA, Simone de Kunovich & Pancratio","Job Jobse","Doppelgang","Newtone","dj sweet6teen","ESTRELLA","Dyed Soundorom","Bradley Zero","Milion"]);
+const DAYMETA=[
+ {key:"fri",label:"Vrijdag",date:"10 juli",base:0,start:0,end:1440},
+ {key:"za", label:"Zaterdag",date:"11 juli",base:1440,start:1440,end:2880},
+ {key:"zo", label:"Zondag", date:"12 juli",base:2880,start:2880,end:3540}
+];
+const SPAN=3540, TOTH=SPAN/60, W=TOTH*HW;
+function mins(t){let[h,m]=t.split(":").map(Number);let v=h*60+m;if(h<12)v+=1440;return v-NOON;}
+function rng(base,s){let[a,b]=s.split("–");let sa=base+mins(a),sb=base+mins(b);if(sb<=sa)sb+=1440;return[sa,sb];}
+const xOf=m=>m/60*HW;
+
+const c=document.getElementById("content");
+const grid=document.createElement("div");grid.className="grid";grid.style.width=(W+LW)+"px";
+
+// day background tints
+let bg="";
+DAYMETA.forEach((dm,i)=>{const tint=i%2?"rgba(181,86,47,.06)":"rgba(125,140,74,.05)";
+ bg+='<div class="daybg" style="left:'+(LW+xOf(dm.start))+'px;width:'+(xOf(dm.end)-xOf(dm.start))+'px;background:'+tint+'"></div>';});
+
+// day band
+let band='<div class="dayband"><div class="db-corner"></div>';
+DAYMETA.forEach(dm=>{band+='<div class="db-seg" style="width:'+(xOf(dm.end)-xOf(dm.start))+'px">'+dm.label+' <span>'+dm.date+'</span></div>';});
+band+='</div>';
+
+// time header (continuous)
+let th='<div class="timehead"><div class="th-corner">Stage</div><div class="hours" style="width:'+W+'px">';
+for(let h=0;h<TOTH;h++){const clk=(12+h)%24;th+='<div class="hour">'+String(clk).padStart(2,"0")+':00</div>';}
+th+='</div></div>';
+grid.innerHTML=bg+band+th;
+
+// day boundary lines
+DAYMETA.slice(1).forEach(dm=>{const dl=document.createElement("div");dl.className="dayline";dl.style.left=(LW+xOf(dm.start))+'px';grid.appendChild(dl);});
+
+let ri=0;
+STAGES.forEach(s=>{
+ let acts=[];DAYMETA.forEach(dm=>{(DATA[dm.key].timed[s]||[]).forEach(a=>acts.push([dm.base,a]));});
+ const hasCont=DAYMETA.some(dm=>DATA[dm.key].cont&&DATA[dm.key].cont[s]&&DATA[dm.key].cont[s].length);
+ if(!acts.length && !hasCont) return;
+ const row=document.createElement("div");row.className="rrow"+((ri++%2)?" alt":"");
+ const col=COL[s];const desc=DESC[s]?'<small>'+DESC[s]+'</small>':'';
+ let html='<div class="rlabel" style="background:'+col+'"><span>'+s+'</span>'+desc+'</div>';
+ html+='<div class="track" style="width:'+W+'px">';
+ for(let h=0;h<=TOTH;h++){const clk=(12+h)%24;const bamboo=(clk%6===0)?" bamboo":"";html+='<div class="vline'+bamboo+'" style="left:'+(h*HW)+'px"></div>';}
+ acts.forEach(([base,a])=>{const[sa,sb]=rng(base,a[0]);
+   const x=xOf(sa), w=Math.max(xOf(sb-sa)-2,26);
+   const tag=a[2]?'<span class="lv">'+a[2]+'</span>':'';
+   const isStar=STARS.has(a[1]);const star=isStar?'<em class="star">★</em>':'';
+   html+='<div class="blk" data-w="'+w+'" title="'+(isStar?'★ ':'')+a[1]+' · '+a[0]+'" style="left:'+x+'px;width:'+w+'px;background:'+col+'"><b>'+star+a[1]+tag+'</b><span>'+a[0]+'</span></div>';});
+ html+='</div>';
+ row.innerHTML=html;grid.appendChild(row);
+});
+
+// verleden-arcering (links van de nu-lijn)
+const veil=document.createElement("div");veil.className="pastveil";veil.style.display="none";
+grid.appendChild(veil);
+
+// now indicator (alleen tijdens het festival)
+const ind=document.createElement("div");ind.className="nowind";ind.style.display="none";
+ind.innerHTML='<div class="nowlbl">NU</div>';
+grid.appendChild(ind);
+
+// tik een blok aan voor de volledige naam
+grid.addEventListener("click",e=>{const b=e.target.closest(".blk");
+ document.querySelectorAll(".blk.open").forEach(x=>{if(x!==b){x.classList.remove("open");x.style.width=x.dataset.w+"px";}});
+ if(!b)return;
+ if(b.classList.contains("open")){b.classList.remove("open");b.style.width=b.dataset.w+"px";}
+ else{b.classList.add("open");if(parseFloat(b.dataset.w)<150)b.style.width="170px";}});
+
+const sc=document.createElement("div");sc.className="scroller";sc.appendChild(grid);c.appendChild(sc);
+
+// dag-sprongknoppen
+const daysEl=document.getElementById("days");
+DAYMETA.forEach(dm=>{const b=document.createElement("button");b.className="day-btn";
+ b.innerHTML=dm.label+"<small>"+dm.date+"</small>";
+ b.onclick=()=>{[...daysEl.children].forEach(x=>x.classList.remove("active"));b.classList.add("active");
+  sc.scrollTo({left:xOf(dm.start),behavior:"smooth"});};
+ daysEl.appendChild(b);});
+
+// doorlopend chips per dag
+const box=document.createElement("div");box.className="cont";
+let ch='<div class="sesslabel">Doorlopend · spel, workshop & host</div>';
+DAYMETA.forEach(dm=>{const items=[];STAGES.forEach(s=>{const arr=DATA[dm.key].cont&&DATA[dm.key].cont[s];
+  if(arr)arr.forEach(x=>items.push('<span class="chip"><i style="background:'+COL[s]+'">'+s.charAt(0)+'</i>'+x+'</span>'));});
+ if(items.length)ch+='<div class="contday"><b>'+dm.label+'</b>'+items.join("")+'</div>';});
+box.innerHTML=ch;c.appendChild(box);
+
+// "nu"-wijzer: verticale lijn met punt, alleen 10–12 juli 2026 (of demo)
+const FEST_START=new Date(2026,6,10,12,0,0), FEST_END=new Date(2026,6,12,23,0,0);
+const DEMO_TIME=new Date(2026,6,11,21,30,0); // zaterdagnacht, lekker druk
+let demo=false;
+const lbl=ind.querySelector(".nowlbl");
+function placeNow(){
+ const now=demo?DEMO_TIME:new Date();
+ if(now<FEST_START||now>FEST_END){ind.style.display="none";veil.style.display="none";return;}
+ const m=(now-FEST_START)/60000;
+ ind.style.left=(LW+xOf(m))+"px";ind.style.display="block";
+ veil.style.left=LW+"px";veil.style.width=xOf(m)+"px";veil.style.display="block";
+ lbl.textContent=demo?"NU · demo":"NU";
+}
+const demoBtn=document.getElementById("demoBtn");
+demoBtn.onclick=()=>{demo=!demo;demoBtn.classList.toggle("on",demo);placeNow();
+ if(demo){const m=(DEMO_TIME-FEST_START)/60000;sc.scrollTo({left:Math.max(LW+xOf(m)-220,0),behavior:"smooth"});}};
+placeNow();setInterval(placeNow,30000);
+</script>
+</body></html>
